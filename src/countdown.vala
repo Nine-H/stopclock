@@ -30,7 +30,6 @@ public class CountdownTimer : Gtk.Grid {
     public CountdownTimer (int h, int m, int s, string name, string description) {
         Object();
         
-        
         State state = State.RUNNING;
         timer = new GLib.Timer ();
         
@@ -42,6 +41,10 @@ public class CountdownTimer : Gtk.Grid {
         var pause = new Gtk.Button.from_icon_name("media-playback-pause-symbolic");
         pause.clicked.connect (countdown_pause);
         add (pause);
+        
+        var fuggoff = new Gtk.Button.from_icon_name("user-trash-full-symbolic");
+        fuggoff.clicked.connect ( cancel );
+        add (fuggoff);
         
         countdown = new Gtk.Label ("0");
         countdown.get_style_context().add_class("h1");
@@ -76,6 +79,10 @@ public class CountdownTimer : Gtk.Grid {
         } else {
             timer.continue ();
         }
+    }
+    
+    private void cancel () {
+        this.destroy ();
     }
 }
 

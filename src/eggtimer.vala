@@ -40,6 +40,7 @@ public class EggTimer : Gtk.Box {
             description
         ));
         
+        
         view.add ( new CountdownTimer (
             6,
             9,
@@ -48,7 +49,7 @@ public class EggTimer : Gtk.Box {
             description
         ));
                     
-        var new_timer = new Gtk.Button.from_icon_name ("tab-new-symbolic");
+        var new_timer = new Gtk.Button.from_icon_name ("list-add-symbolic");
         new_timer.clicked.connect ( add_timer );
         
         this.pack_start (view, true, true, 0);
@@ -56,8 +57,19 @@ public class EggTimer : Gtk.Box {
     }
     
     private void add_timer () {
-        stdout.printf ("dickbutt");
-        view.add ( new Gtk.Label ("dickbutt") );
+        int countdown_h, countdown_m, countdown_s = 0;
+        string name = "test";
+        string description = "a test timer";
+        countdown_h = 0;
+        countdown_m = 1;
+        countdown_s = 0; 
+        view.insert ( new CountdownTimer (
+            countdown_h,
+            countdown_m,
+            countdown_s,
+            name,
+            description
+        ) , 0);
     }
 
 }
