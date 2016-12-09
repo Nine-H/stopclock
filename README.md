@@ -1,4 +1,4 @@
-#Stopclock
+#StopClock
 the only clock app that's right twice a day!
 
 ###about

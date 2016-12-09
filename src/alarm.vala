@@ -16,13 +16,10 @@
  */
  
 using Gtk;
-namespace StopClock {
-namespace Alarm {
-    public class Alarm : Gtk.Box {
-        public Alarm (Gtk.Orientation orientation, int spacing) {
-            Object(orientation: orientation, spacing: spacing);
-            this.add (new Gtk.Label ("Alarms"));
-        }
+
+public class Alarm : Gtk.Box {
+    public Alarm (Gtk.Orientation orientation, int spacing) {
+        Object(orientation: orientation, spacing: spacing);
+        this.add (new Gtk.Label ("I hate real life :("));
     }
-}
 }

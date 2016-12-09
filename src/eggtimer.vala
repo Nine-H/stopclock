@@ -16,51 +16,49 @@
  */
 
 using Gtk;
-namespace StopClock {
-    namespace EggTimer {
-        public class EggTimer : Gtk.Box {
-            private Gtk.ListBox view;
-            
-            public EggTimer (Gtk.Orientation orientation, int spacing) {
-                Object(orientation: orientation, spacing: spacing);
-                
-                int countdown_h, countdown_m, countdown_s = 0;
-                string name = "test";
-                string description = "a test timer";
-                countdown_h = 0;
-                countdown_m = 1;
-                countdown_s = 0;            
-                
-                view = new Gtk.ListBox ();
-                
-                view.add ( new CountdownTimer.CountdownTimer (
-                    countdown_h,
-                    countdown_m,
-                    countdown_s,
-                    name,
-                    description
-                ));
-                
-                view.add ( new CountdownTimer.CountdownTimer (
-                    6,
-                    9,
-                    countdown_s,
-                    name,
-                    description
-                ));
-                            
-                var new_timer = new Gtk.Button.from_icon_name ("tab-new-symbolic");
-                new_timer.clicked.connect ( add_timer );
-                
-                this.pack_start (view, true, true, 0);
-                this.pack_end (new_timer, false, false, 0);
-            }
-            
-            private void add_timer () {
-                stdout.printf ("dickbutt");
-                view.add ( new Gtk.Label ("dickbutt") );
-            }
 
-        }
+public class EggTimer : Gtk.Box {
+    private Gtk.ListBox view;
+    
+    public EggTimer (Gtk.Orientation orientation, int spacing) {
+        Object(orientation: orientation, spacing: spacing);
+        
+        int countdown_h, countdown_m, countdown_s = 0;
+        string name = "test";
+        string description = "a test timer";
+        countdown_h = 0;
+        countdown_m = 1;
+        countdown_s = 0;            
+        
+        view = new Gtk.ListBox ();
+        
+        view.add ( new CountdownTimer (
+            countdown_h,
+            countdown_m,
+            countdown_s,
+            name,
+            description
+        ));
+        
+        view.add ( new CountdownTimer (
+            6,
+            9,
+            countdown_s,
+            name,
+            description
+        ));
+                    
+        var new_timer = new Gtk.Button.from_icon_name ("tab-new-symbolic");
+        new_timer.clicked.connect ( add_timer );
+        
+        this.pack_start (view, true, true, 0);
+        this.pack_end (new_timer, false, false, 0);
     }
+    
+    private void add_timer () {
+        stdout.printf ("dickbutt");
+        view.add ( new Gtk.Label ("dickbutt") );
+    }
+
 }
+
