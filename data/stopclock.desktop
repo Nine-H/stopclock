@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=StopClock
+GenericName=Desktop Timer
+Comment=It's Right Twice a Day.
+Categories=GTK;Utility;
+Exec=stopclock
+Icon=application-default-icon
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=stopclock
+Keywords=Timer;Clock;Stopwatch;Reminder;World Clocks;Eggtimer;Countdown
+Actions=About;
+
+[Desktop Action About]
+Exec=stopclock --about
+Name=About StopClock
