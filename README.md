@@ -12,7 +12,7 @@ stopclock is one of those tools that just should have been built in, but I'm gla
 * lap function
 
 ####countdown timer
-* hahahaha
+* you can add as many timers as you want provided you only want to set them to 1 minute :D
 
 ####alarmclock
 * dummy

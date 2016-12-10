@@ -24,7 +24,7 @@ public class Reminder : Gtk.Box {
     
     public Reminder (Gtk.Orientation orientation, int spacing) {
         Object(orientation: orientation, spacing: spacing);
-        this.add (new Gtk.Label ("Hassle U bout some Shidd"));
+        this.add (new Gtk.Label ("Hassle U bout some Shidd is dis builded ??"));
         
         int h = 0; int m = 20; int s = 0; //FIXME: hardcoded 20mins :D
         
