@@ -45,6 +45,7 @@ class StopClockApp : Granite.Application {
     
     public static int main ( string [] args ) {
         Gtk.init (ref args);
+        Notify.init ("StopClock");
         var app = new StopClockApp ();
         return app.run (args);
     }

@@ -18,6 +18,7 @@
 
 public class CountdownTimer : Gtk.Grid {
     private Gtk.Button pause;
+    private Notify.Notification notification;
     private Gtk.Label countdown;
     private GLib.Timer timer;
     private double countdown_time;
@@ -32,12 +33,14 @@ public class CountdownTimer : Gtk.Grid {
         Object();
         
         this.column_spacing = 6;
-        this.margin_left = 12;
-        this.margin_right = 12;
+        this.margin_start = 12;
+        this.margin_end = 12;
         this.expand = true;
         
         State state = State.RUNNING;
         timer = new GLib.Timer ();
+        
+        notification = new Notify.Notification (name, description, "dialog-warning");
         
         var fuggoff = new Gtk.Button.from_icon_name("process-stop-symbolic");
         fuggoff.clicked.connect ( cancel );
@@ -82,6 +85,12 @@ public class CountdownTimer : Gtk.Grid {
         if (remaining < 0) {
             timer.stop ();
             remaining = 0;
+            try {
+                notification.show ();
+            } catch (Error e) {
+        		error ("Error: %s", e.message);
+        	}
+            
         }
         Utils.time_to_hms(remaining, out h, out m, out s, out ms);
         countdown.set_label ("%i\u200E∶%02i\u200E∶%02i.\u200E%02i".printf (h, m, s, ms));

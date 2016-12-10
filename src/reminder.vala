@@ -20,21 +20,18 @@ using Gtk;
 public class Reminder : Gtk.Box {
     private double interval;
     private GLib.Timer timer;
-    private GLib.Notification notification;
+    private Notify.Notification notification;
     
     public Reminder (Gtk.Orientation orientation, int spacing) {
         Object(orientation: orientation, spacing: spacing);
         this.add (new Gtk.Label ("Hassle U bout some Shidd is dis builded ??"));
         
-        int h = 0; int m = 20; int s = 0; //FIXME: hardcoded 20mins :D
+        int h = 0; int m = 20; int s = 10; //FIXME: hardcoded 20mins :D
         
-        //FIXME: should I be using Notify.Notification()???
-        notification = new GLib.Notification ("Remember to Stretch");
-        notification.set_body ("think of your back :D");
-        //var icon = new GLib.Icon.new_for_string ("dialog-warning");
-        //notification.set_icon (icon);
-        //GLib.Application.get_default ().send_notification (null, notification);
-      
+        string msg = "Remember to Stretch";
+        string body = "think of your back :D";
+        string icon = "dialog-warning";
+        notification = new Notify.Notification (msg, body, icon);
         
         timer = new GLib.Timer ();
         
@@ -46,7 +43,11 @@ public class Reminder : Gtk.Box {
     
     private bool update () {
         if ( timer.elapsed() > interval ) {
-            GLib.Application.get_default ().send_notification (null, notification);
+            try {
+                notification.show ();
+            } catch (Error e) {
+        		error ("Error: %s", e.message);
+        	}
             timer.reset();
         }
         return true;
