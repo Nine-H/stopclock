@@ -51,6 +51,7 @@ public class CountdownTimer : Gtk.Grid {
         name_label.get_style_context().add_class("h3");
         name_label.set_halign(Gtk.Align.START);
         var description_label = new Gtk.Label (description);
+        description_label.set_halign(Gtk.Align.START);
         add (name_label);
         attach_next_to (description_label, name_label, Gtk.PositionType.BOTTOM);
         

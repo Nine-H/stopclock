@@ -26,7 +26,38 @@ public class EggTimer : Gtk.Box {
         view = new Gtk.ListBox ();
                     
         var new_timer = new Gtk.Button.from_icon_name ("list-add-symbolic");
-        new_timer.clicked.connect ( add_timer );
+        new_timer.clicked.connect ( ()=> {
+            int countdown_h, countdown_m, countdown_s = 0;
+            countdown_h = 0;
+            countdown_m = 1;
+            countdown_s = 0; 
+            var pop = new Gtk.Popover (new_timer);
+            //set popover content
+            var poplayout = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            poplayout.margin = 6;
+            
+            var title = new Gtk.Entry ();
+            poplayout.add (title);
+            
+            var body = new Gtk.Entry ();
+            poplayout.add (body);
+            
+            var popoverbutton = new Gtk.Button.with_label ("Start");
+            popoverbutton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            popoverbutton.clicked.connect (()=>{
+                view.insert ( new CountdownTimer (
+                    countdown_h,
+                    countdown_m,
+                    countdown_s,
+                    title.get_text(),
+                    body.get_text()
+                ) , 0);
+            } );
+            poplayout.add (popoverbutton);
+            
+            pop.add (poplayout);
+            pop.show_all ();
+        } );
         
         this.pack_start (view, true, true, 0);
         this.pack_end (new_timer, false, false, 0);

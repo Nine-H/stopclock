@@ -37,3 +37,8 @@ sudo update-icon-caches /usr/share/icons/*
 Amateur apps cop alot of stick for only really scratching the developer's itch, I can't think of an app this describes more thoroughly than this one. So far StopClock has doubled my plank time, improved my posture, and taught me github and vala.
 
 Started on luna, stopwatch icon from sysprof from the gnome team, first program for linux, really bad but a learning experience, please help out if you can.
+
+Ideally I'd like to solve all these problems before the absolute heat death at the end of the universe (which is 2038 according to my iPod)
+
+http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
+http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time
