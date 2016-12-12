@@ -19,15 +19,13 @@ using Gtk;
 using GLib;
 
 public class StopWatch : Gtk.Box {
-    //Global vars
-    private Gtk.Label readout;
-    private Gtk.Label miliseconds;
     private Gtk.TreeView laps;
     private Gtk.Button button_startstop;
     private GLib.Timer timer;
     private bool cleared;
     private Gtk.ListStore laplist;
     private Gtk.TreeIter iter;
+    private Counter display;
     
     public StopWatch (Gtk.Orientation orientation, int spacing) {
         Object(orientation: orientation, spacing: spacing);
@@ -35,13 +33,7 @@ public class StopWatch : Gtk.Box {
         var controls = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
         controls.set_border_width (12);
         
-        var readout_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
-        readout_box.set_halign(Gtk.Align.CENTER);
-        
-        readout = new Gtk.Label("");  
-        readout.get_style_context().add_class("h1");
-        miliseconds = new Gtk.Label("");
-        miliseconds.get_style_context().add_class("h2");
+        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
         
         timer = new GLib.Timer();
         
@@ -64,13 +56,11 @@ public class StopWatch : Gtk.Box {
         button_reset.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         button_reset.clicked.connect (clear);
         
-        readout_box.add (readout);
-        readout_box.add (miliseconds);
         controls.pack_start (button_lap);
         controls.pack_start (button_reset);
         controls.pack_end (button_startstop);
         controls.set_homogeneous (true);
-        this.pack_start (readout_box, false, false, 0);
+        this.pack_start (display, false, false, 0);
         this.pack_start (laps, true, true, 0);
         this.pack_end (controls, false, false, 0);
         
@@ -101,7 +91,7 @@ public class StopWatch : Gtk.Box {
         timer.stop ();
         laplist.clear ();
         cleared = true;
-        readout.set_label ("0.00");
+        display.set_display ( 0 );
     }
     
     private void lap () {
@@ -113,13 +103,7 @@ public class StopWatch : Gtk.Box {
     }
     
     private bool update () {
-        int h, m, s, ms = 0;
-        Utils.time_to_hms (timer.elapsed (), out h, out m, out s, out ms);
-        if (h != 0)
-            readout.set_label (@"$h:$m:$s.$ms");
-        else
-            readout.set_label ("%i∶%02i".printf (m, s));
-        miliseconds.set_label (".%02i".printf (ms));
+        display.set_display ( timer.elapsed () );
         return true;
     }
 }

@@ -17,9 +17,9 @@
 
 
 public class CountdownTimer : Gtk.Grid {
+    private Counter display;
     private Gtk.Button pause;
     private Notify.Notification notification;
-    private Gtk.Label countdown;
     private GLib.Timer timer;
     private double countdown_time;
     private enum State {
@@ -60,14 +60,12 @@ public class CountdownTimer : Gtk.Grid {
         attach (pause,2,0,1,2);
         pause.get_style_context ().remove_class ("button");
         
-        countdown = new Gtk.Label ("0");
-        countdown.get_style_context().add_class("h1");
-        attach_next_to (countdown, pause, Gtk.PositionType.RIGHT, 1, 2);
+        display = new Counter (Gtk.Orientation.HORIZONTAL, 2);
+        attach_next_to (display, pause, Gtk.PositionType.RIGHT, 1, 2);
         
         var reorder = new Gtk.Button.from_icon_name ("view-list-symbolic");
         reorder.get_style_context ().remove_class ("button");
         attach (reorder, 4, 0, 1, 2);
-        
         
         this.show_all ();
         start (h, m, s);
@@ -81,20 +79,18 @@ public class CountdownTimer : Gtk.Grid {
     }
     
     private bool update () {
-        int h, m, s, ms = 0;
         double remaining = countdown_time - timer.elapsed();
-        if (remaining < 0) {
+        display.set_display ( remaining );
+        if ( remaining < 0 ) {
             timer.stop ();
-            remaining = 0;
+            timer.reset ();
+            display.set_display ( 0 );
             try {
                 notification.show ();
             } catch (Error e) {
         		error ("Error: %s", e.message);
         	}
-            
         }
-        Utils.time_to_hms(remaining, out h, out m, out s, out ms);
-        countdown.set_label ("%i\u200E∶%02i\u200E∶%02i.\u200E%02i".printf (h, m, s, ms));
         return true;
     }
     

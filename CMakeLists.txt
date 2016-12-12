@@ -33,6 +33,7 @@ ensure_vala_version("0.29.1" MINIMUM)
 
 include(ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
+    src/widgets/counter.vala
     src/countdown.vala
     src/utils.vala
     src/worldclock.vala
