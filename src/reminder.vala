@@ -21,10 +21,11 @@ public class Reminder : Gtk.Box {
     private double interval;
     private GLib.Timer timer;
     private Notify.Notification notification;
+    private Counter display;
     
     public Reminder (Gtk.Orientation orientation, int spacing) {
         Object(orientation: orientation, spacing: spacing);
-        this.add (new Gtk.Label ("Hassle U bout some Shidd is dis builded ??"));
+        this.add (new Gtk.Label ("Hassle U bout some Shidd\n is dis builded ??\nnext hassile in aboudd"));
         
         int h = 0; int m = 20; int s = 10; //FIXME: hardcoded 20mins :D
         
@@ -34,6 +35,9 @@ public class Reminder : Gtk.Box {
         notification = new Notify.Notification (msg, body, icon);
         
         timer = new GLib.Timer ();
+        
+        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
+        this.add ( display );
         
         Utils.hms_to_double (h, m, s, out interval);
         timer.start ();
@@ -50,6 +54,7 @@ public class Reminder : Gtk.Box {
         	}
             timer.reset();
         }
+        display.set_display ( interval - timer.elapsed () );
         return true;
     }
 }

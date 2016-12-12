@@ -42,13 +42,36 @@ public class EggTimer : Gtk.Box {
             var body = new Gtk.Entry ();
             poplayout.add (body);
             
+            //time entry starts here :D
+            
+            var timeentry = new Gtk.HBox ( false, 6 );
+            
+            var hours = new Gtk.SpinButton.with_range ( 0, 100, 1 );
+            hours.set_orientation (Gtk.Orientation.VERTICAL);
+            timeentry.add ( hours );
+            
+            var separator = new Gtk.Label ("∶");
+            separator.get_style_context().add_class( "h1" );
+            timeentry.add ( separator );
+            
+            var minutes =  new Gtk.SpinButton.with_range ( 0, 60, 1 );
+            minutes.set_orientation (Gtk.Orientation.VERTICAL);
+            timeentry.add ( minutes );
+            
+            var seconds = new Gtk.SpinButton.with_range ( 0, 60, 1 );
+            seconds.set_orientation (Gtk.Orientation.VERTICAL);
+            timeentry.add ( seconds );
+            
+            poplayout.add ( timeentry );
+            // /timeentry
+            
             var popoverbutton = new Gtk.Button.with_label ("Start");
             popoverbutton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             popoverbutton.clicked.connect (()=>{
                 view.insert ( new CountdownTimer (
-                    countdown_h,
-                    countdown_m,
-                    countdown_s,
+                    hours.get_value_as_int(),
+                    minutes.get_value_as_int(),
+                    seconds.get_value_as_int(),
                     title.get_text(),
                     body.get_text()
                 ) , 0);

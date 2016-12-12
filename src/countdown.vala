@@ -60,7 +60,7 @@ public class CountdownTimer : Gtk.Grid {
         attach (pause,2,0,1,2);
         pause.get_style_context ().remove_class ("button");
         
-        display = new Counter (Gtk.Orientation.HORIZONTAL, 2);
+        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
         attach_next_to (display, pause, Gtk.PositionType.RIGHT, 1, 2);
         
         var reorder = new Gtk.Button.from_icon_name ("view-list-symbolic");
