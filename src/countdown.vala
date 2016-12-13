@@ -55,8 +55,8 @@ public class CountdownTimer : Gtk.Grid {
         add (name_label);
         attach_next_to (description_label, name_label, Gtk.PositionType.BOTTOM);
         
-        pause = new Gtk.Button.from_icon_name("media-playback-pause-symbolic");
-        pause.clicked.connect (countdown_pause);
+        pause = new Gtk.Button.from_icon_name( "media-playback-pause-symbolic" );
+        pause.clicked.connect ( countdown_pause );
         attach (pause,2,0,1,2);
         pause.get_style_context ().remove_class ("button");
         
@@ -90,6 +90,7 @@ public class CountdownTimer : Gtk.Grid {
             } catch (Error e) {
         		error ("Error: %s", e.message);
         	}
+        	pause.set_image ( new Gtk.Image.from_icon_name ( "view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR ) );
         }
         return true;
     }
@@ -97,9 +98,10 @@ public class CountdownTimer : Gtk.Grid {
     private void countdown_pause () {
         if (state == State.RUNNING) {
             timer.stop ();
-            //pause.icon_name = "emblem-important-symbolic";
+            pause.set_image ( new Gtk.Image.from_icon_name ( "media-playback-start-symbolic", Gtk.IconSize.SMALL_TOOLBAR ) );
         } else {
             timer.continue ();
+            pause.set_image ( new Gtk.Image.from_icon_name ( "media-playback-pause-symbolic", Gtk.IconSize.SMALL_TOOLBAR ) );
         }
     }
     
