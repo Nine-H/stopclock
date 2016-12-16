@@ -18,43 +18,23 @@
 using Gtk;
 
 public class Reminder : Gtk.Box {
-    private double interval;
-    private GLib.Timer timer;
-    private Notify.Notification notification;
-    private Counter display;
+    Gtk.ListBox list_view;
     
-    public Reminder (Gtk.Orientation orientation, int spacing) {
-        Object(orientation: orientation, spacing: spacing);
-        this.add (new Gtk.Label ("Hassle U bout some Shidd\n is dis builded ??\nnext hassile in aboudd"));
+    public Reminder () {
+        Object(orientation: Gtk.Orientation.VERTICAL, spacing: 0);
         
-        int h = 0; int m = 20; int s = 10; //FIXME: hardcoded 20mins :D
+        var scrolled = new Gtk.ScrolledWindow ( null, null );
         
-        string msg = "Remember to Stretch";
-        string body = "think of your back :D";
-        string icon = "dialog-warning";
-        notification = new Notify.Notification (msg, body, icon);
+        list_view = new Gtk.ListBox ();
+        scrolled.add ( list_view );
+        this.pack_start ( scrolled, true, true, 0 );
         
-        timer = new GLib.Timer ();
-        
-        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
-        this.add ( display );
-        
-        Utils.hms_to_double (h, m, s, out interval);
-        timer.start ();
-        
-        Timeout.add (30, update);
-    }
-    
-    private bool update () {
-        if ( timer.elapsed() > interval ) {
-            try {
-                notification.show ();
-            } catch (Error e) {
-        		error ("Error: %s", e.message);
-        	}
-            timer.reset();
-        }
-        display.set_display ( interval - timer.elapsed () );
-        return true;
+        var add_timer = new Gtk.Button.from_icon_name ( "list-add-symbolic" );
+        var popover = new ReminderPopover ( add_timer, list_view );
+        add_timer.clicked.connect (() => {
+            popover.show_all ();
+            list_view.show_all ();
+        } );
+        this.pack_end ( add_timer, false, false, 0 );
     }
 }

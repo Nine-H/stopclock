@@ -1,4 +1,4 @@
-/*-
+ /*-
  * Copyright (c) 2015 StopClock Developers (nine.gentooman@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,9 @@ public class CountdownTimer : Gtk.Grid {
         attach (pause,2,0,1,2);
         pause.get_style_context ().remove_class ("button");
         
-        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
+        display = new Counter ();
+        display.hexpand = true;
+        display.halign = Gtk.Align.END;
         attach_next_to (display, pause, Gtk.PositionType.RIGHT, 1, 2);
         
         var reorder = new Gtk.Button.from_icon_name ("view-list-symbolic");

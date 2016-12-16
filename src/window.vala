@@ -42,7 +42,7 @@ class Window : Gtk.Window {
         this.get_style_context ().add_class ("rounded");
         
         var view = new Gtk.Stack ();
-        var stopwatch = new StopWatch(Gtk.Orientation.VERTICAL, 0);
+        var stopwatch = new StopWatch ();
         view.add_titled ( stopwatch, "stopwatch", "stopwatch");
         view.child_set_property (stopwatch, "icon-name", "stopclock-symbolic");
         
@@ -54,7 +54,7 @@ class Window : Gtk.Window {
         view.add_titled (alarm, "alarm", "alarm");
         view.child_set_property (alarm, "icon-name","alarm-symbolic");
         
-        var reminder = new Reminder(Gtk.Orientation.VERTICAL, 0);
+        var reminder = new Reminder();
         view.add_titled (reminder, "reminder", "reminder");
         view.child_set_property (reminder, "icon-name", "media-playlist-repeat-symbolic");
         

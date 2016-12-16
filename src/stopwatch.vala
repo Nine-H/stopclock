@@ -27,13 +27,13 @@ public class StopWatch : Gtk.Box {
     private Gtk.TreeIter iter;
     private Counter display;
     
-    public StopWatch (Gtk.Orientation orientation, int spacing) {
-        Object(orientation: orientation, spacing: spacing);
+    public StopWatch () {
+        Object( orientation: Gtk.Orientation.VERTICAL, spacing: 0 );
         
         var controls = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
         controls.set_border_width (12);
         
-        display = new Counter ( Gtk.Orientation.HORIZONTAL, 2 );
+        display = new Counter ();
         
         timer = new GLib.Timer();
         

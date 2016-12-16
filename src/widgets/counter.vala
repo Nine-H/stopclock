@@ -21,7 +21,8 @@ class Counter : Gtk.Box {
     private Gtk.Label readout;
     private Gtk.Label miliseconds;
     
-    public Counter (Gtk.Orientation orientation, int spacing) {
+    public Counter () {
+        Object ( orientation: Gtk.Orientation.HORIZONTAL, spacing: 2 );
         readout = new Gtk.Label ( "" );
         readout.get_style_context().add_class( "h1" );
         miliseconds = new Gtk.Label ( "" );
