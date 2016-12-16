@@ -18,19 +18,23 @@
 
 namespace Utils {
 
-public void time_to_hms (double t, out int h, out int m, out int s, out int ms) {
-    double r;
-    h = (int) t / 3600;
-    t %= 3600;
-    m = (int) t / 60;
-    t %= 60;
-    s = (int) t;
-    r = t - s;
-    ms = (int) (r * 100);
-}
+    public void time_to_hms (double t, out int h, out int m, out int s, out int ms) {
+        double r;
+        h = (int) t / 3600;
+        t %= 3600;
+        m = (int) t / 60;
+        t %= 60;
+        s = (int) t;
+        r = t - s;
+        ms = (int) (r * 100);
+    }
 
-public void hms_to_double (int h, int m, int s, out double t) {
-    t = s + (m * 60) + (h * 3600);
-}
+    public void hms_to_double (int h, int m, int s, out double t) {
+        t = s + (m * 60) + (h * 3600);
+    }
+
+    public double hms_to_double2 ( int h, int m, int s ) {
+        return (double) s + ( m * 60) + ( h * 3600 );
+    }
 
 }

@@ -40,7 +40,15 @@ class ReminderPopover : Gtk.Popover {
         add_timer.get_style_context ().add_class ( Gtk.STYLE_CLASS_SUGGESTED_ACTION );
         layout.add ( add_timer );
         add_timer.clicked.connect ( () => {
-            list_view.insert ( new ReminderTimer (), 0 );
+            list_view.insert ( new ReminderTimer (
+                title.get_text (),
+                body.get_text (),
+                Utils.hms_to_double2 (
+                    hours.get_value_as_int (),
+                    minutes.get_value_as_int (),
+                    seconds.get_value_as_int ()
+                )
+            ), 0 );
         } );
         
         this.add ( layout );
