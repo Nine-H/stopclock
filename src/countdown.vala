@@ -102,7 +102,7 @@ public class CountdownTimer : Gtk.Grid {
             timer.stop ();
             pause.set_image ( new Gtk.Image.from_icon_name ( "media-playback-start-symbolic", Gtk.IconSize.SMALL_TOOLBAR ) );
         } else {
-            timer.continue ();
+            timer.@continue ();
             pause.set_image ( new Gtk.Image.from_icon_name ( "media-playback-pause-symbolic", Gtk.IconSize.SMALL_TOOLBAR ) );
         }
     }

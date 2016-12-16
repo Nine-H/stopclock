@@ -33,7 +33,7 @@ public class Reminder : Gtk.Box {
         var popover = new ReminderPopover ( add_timer, list_view );
         add_timer.clicked.connect (() => {
             popover.show_all ();
-            list_view.show_all ();
+            //list_view.show_all ();
         } );
         this.pack_end ( add_timer, false, false, 0 );
     }
