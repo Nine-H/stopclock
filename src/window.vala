@@ -46,19 +46,19 @@ class Window : Gtk.Window {
         view.add_titled ( stopwatch, "stopwatch", "stopwatch");
         view.child_set_property (stopwatch, "icon-name", "stopclock-symbolic");
         
-        var eggtimer = new EggTimer(Gtk.Orientation.VERTICAL, 0);
+        var eggtimer = new ManagerView ( ManagerView.ManagerType.EGGTIMER );
         view.add_titled (eggtimer, "eggtimer", "eggtimer");
         view.child_set_property (eggtimer, "icon-name", "emblem-important-symbolic");
         
-        var alarm = new Alarm(Gtk.Orientation.VERTICAL, 0);
+        var alarm = new ManagerView ( ManagerView.ManagerType.ALARMTIMER );
         view.add_titled (alarm, "alarm", "alarm");
         view.child_set_property (alarm, "icon-name","alarm-symbolic");
         
-        var reminder = new Reminder();
+        var reminder = new ManagerView ( ManagerView.ManagerType.REPEATTIMER );
         view.add_titled (reminder, "reminder", "reminder");
         view.child_set_property (reminder, "icon-name", "media-playlist-repeat-symbolic");
         
-        var worldclock = new WorldClock(Gtk.Orientation.VERTICAL, 0);
+        var worldclock = new ManagerView ( ManagerView.ManagerType.WORLDCLOCK );
         view.add_titled (worldclock, "worldclock", "worldclock");
         view.child_set_property (worldclock, "icon-name", "text-html-symbolic");
         

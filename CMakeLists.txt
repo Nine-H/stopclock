@@ -35,13 +35,16 @@ include(ValaPrecompile)
 vala_precompile(VALA_C ${EXEC_NAME}
     src/widgets/counter.vala
     src/widgets/reminder_popover.vala
+    src/widgets/hms_popover.vala
     src/widgets/reminder_timer.vala
+    src/widgets/eggtimer_timer.vala
     src/countdown.vala
     src/utils.vala
     src/worldclock.vala
     src/alarm.vala
     src/eggtimer.vala
     src/reminder.vala
+    src/manager_view.vala
     src/stopwatch.vala
     src/window.vala
     src/stopclock.vala

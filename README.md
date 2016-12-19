@@ -1,5 +1,5 @@
 #StopClock
-The only clock app that's right twice a day!
+The only clock app that's right twice a day! coded for elementary OS!
 
 ###about
 Stopclock is one of those tools that just should have been built in, but I'm glad it wasn't because I plan to make hot $$$ flogging it in appcenter. 
@@ -20,7 +20,7 @@ Stopclock is one of those tools that just should have been built in, but I'm gla
 * dummy
 
 ####reminder
-* great if you want to stretch every 20mins otherwise it pops a useless notification :D
+* set and delete as many custom recurring alarms as you want.
 
 ####world clock
 * dummy
