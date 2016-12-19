@@ -20,12 +20,29 @@ class ReminderTimer : Gtk.Grid {
     private GLib.Timer timer;
     private Notify.Notification notification;
     private double interval;
+    private enum TimerState {
+        RUNNING,
+        SUSPENDED
+    }
+    private TimerState timer_state;
+    private Gtk.Image suspend_icon;
+    private Gtk.Image resume_icon;
     
     public ReminderTimer ( string input_title, string input_message, double timer_interval ) {
         Object ();
         this.column_spacing = 6;
         this.margin_start = 12;
         this.margin_end = 12;
+        
+        //precache the icons so it doesn't eat ram every suspend.
+        suspend_icon = new Gtk.Image.from_icon_name (
+            "media-playback-pause-symbolic", Gtk.IconSize.SMALL_TOOLBAR
+        );
+        resume_icon = new Gtk.Image.from_icon_name (
+            "media-playback-start-symbolic", Gtk.IconSize.SMALL_TOOLBAR
+        );
+        
+        timer_state = TimerState.RUNNING;
         
         interval = timer_interval;
         if ( input_title == "" ) input_title = "Default Timer";
@@ -59,6 +76,7 @@ class ReminderTimer : Gtk.Grid {
         var suspend = new Gtk.Button.from_icon_name (
             "media-playback-pause-symbolic"
         );
+        suspend.clicked.connect ( suspend_restore );
         suspend.get_style_context ().remove_class ( "button" );
         this.attach ( suspend, 3, 0, 1, 2 );
         
@@ -88,5 +106,17 @@ class ReminderTimer : Gtk.Grid {
         }
         display.set_display ( interval - timer.elapsed() );
         return true;
+    }
+    
+    private void suspend_restore ( Gtk.Button button ) {
+        if ( timer_state == TimerState.SUSPENDED ) {
+            timer.@continue ();
+            timer_state = TimerState.RUNNING;
+            button.set_image ( suspend_icon );
+        } else {
+            timer.stop ();
+            timer_state = TimerState.SUSPENDED;
+            button.set_image ( resume_icon );
+        }
     }
 }
