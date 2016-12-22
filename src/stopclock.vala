@@ -46,6 +46,17 @@ class StopClockApp : Granite.Application {
     public static int main ( string [] args ) {
         Gtk.init (ref args);
         Notify.init ("StopClock");
+        
+        string css_file = "/usr/share/stopclock/stopclock.css";
+        var css_provider = new Gtk.CssProvider ();
+        
+        try {
+            css_provider.load_from_path (css_file);
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+        } catch (Error e) {
+            stderr.printf ("error: %s", e.message);
+        }
+        
         var app = new StopClockApp ();
         return app.run (args);
     }

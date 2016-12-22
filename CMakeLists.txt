@@ -56,8 +56,7 @@ install (TARGETS ${EXEC_NAME} RUNTIME DESTINATION bin)
 
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.desktop DESTINATION ${DATADIR}/applications/)
 
-# install stopwatch icon from sysprof so this shit fucking works
-#install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopwatch-symbolic.svg DESTINATION ${DATADIR}/stopclock)
+install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.css DESTINATION ${DATADIR}/stopclock)
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock-symbolic.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/actions )
 
 include (GSettings)

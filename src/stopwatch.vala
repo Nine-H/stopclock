@@ -31,7 +31,7 @@ public class StopWatch : Gtk.Box {
         Object( orientation: Gtk.Orientation.VERTICAL, spacing: 0 );
         
         var controls = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-        controls.set_border_width (12);
+        controls.border_width = 12;
         
         display = new Counter ();
         
@@ -40,6 +40,7 @@ public class StopWatch : Gtk.Box {
         laplist = new Gtk.ListStore (2, typeof (string), typeof (string));
         
         laps = new Gtk.TreeView.with_model ( laplist );
+        laps.get_style_context (). add_class ( "lap-list" );
         Gtk.CellRendererText cell = new Gtk.CellRendererText ();
         laps.insert_column_with_attributes (-1, "Lap", cell, "text", 0);
         laps.insert_column_with_attributes (-1, "Time", cell, "text", 0);
@@ -56,9 +57,9 @@ public class StopWatch : Gtk.Box {
         button_reset.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         button_reset.clicked.connect (clear);
         
-        controls.pack_start (button_lap);
-        controls.pack_start (button_reset);
-        controls.pack_end (button_startstop);
+        controls.add (button_lap);
+        controls.add (button_reset);
+        controls.add (button_startstop);
         controls.set_homogeneous (true);
         this.pack_start (display, false, false, 0);
         this.pack_start (laps, true, true, 0);

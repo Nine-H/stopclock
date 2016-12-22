@@ -35,6 +35,7 @@ class EggTimerTimer : Gtk.Grid {
         this.column_spacing = 6;
         this.margin_start = 12;
         this.margin_end = 12;
+        this.get_style_context (). add_class ( "timer-box" );
         
         //Precache icons
         suspend_icon = new Gtk.Image.from_icon_name (
@@ -111,6 +112,7 @@ class EggTimerTimer : Gtk.Grid {
                 error ("Error: %s", e.message);
             }
             return true;//FIXME; false kills the update, which we need to keep calling to reset D:
+            //actually might if rebound in the switch below but I gotta go to work D:
         }
         display.set_display ( countdown - timer.elapsed() );
         return true;

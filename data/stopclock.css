@@ -1,0 +1,23 @@
+.lap-list {
+    padding: 1px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-top-color: #858585;
+    border-bottom-width: 1px;
+}
+
+.manager-button {
+    padding: 11px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-top-color: #858585;
+}
+
+.timer-box {
+    margin-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 6px;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-color: #cccccc;
+}

@@ -33,6 +33,7 @@ class ReminderTimer : Gtk.Grid {
         this.column_spacing = 6;
         this.margin_start = 12;
         this.margin_end = 12;
+        this.get_style_context (). add_class ( "timer-box" );
         
         //precache the icons so it doesn't eat ram every suspend.
         suspend_icon = new Gtk.Image.from_icon_name (

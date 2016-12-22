@@ -40,7 +40,7 @@ public class ManagerView : Gtk.Box {
         
         var add_timer = new Gtk.Button.from_icon_name ( "list-add-symbolic" );
         add_timer.get_style_context (). remove_class ( "button" );
-        //add_timer.get_style_context (). add_class ( "tab-bar" ); //FIXME: find an aesthetic style class
+        add_timer.get_style_context (). add_class ( "manager-button" );
         
         switch ( manager_type ) {
             case ManagerType.EGGTIMER:
