@@ -25,12 +25,13 @@ class StopClockApp : Granite.Application {
         exec_name = "stopclock";
         app_years = "2015 - 2016";
         app_launcher = "stopclock.desktop";
+        app_icon = "stopclock";
         application_id = "com.github.nine-h.stopclock";
         main_url = "https://github.com/Nine-H/stopclock";
         bug_url = "https://github.com/Nine-H/stopclock/issues";
         about_authors = { "Nine H <nine.gentooman@gmail.com>" };
         about_license_type = Gtk.License.GPL_3_0;
-        about_comments = "It's right TWICE a day :D";           
+        about_comments = "It's right TWICE a day :D";
     }
     
     public StopClockApp () {

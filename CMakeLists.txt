@@ -58,6 +58,8 @@ install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.desktop DESTINATION ${
 
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.css DESTINATION ${DATADIR}/stopclock)
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock-symbolic.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/actions )
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.svg"
+DESTINATION ${DATADIR}/pixmaps/)
 
 include (GSettings)
 add_schema ("data/com.github.nine-h.stopclock.gschema.xml")
