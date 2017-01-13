@@ -17,7 +17,6 @@
  
 class EggTimerTimer : Gtk.Grid {
     private Counter display;
-    private uint timeout_id;
     private GLib.Timer timer;
     private Notify.Notification notification;
     private double countdown;
@@ -30,7 +29,6 @@ class EggTimerTimer : Gtk.Grid {
     private Gtk.Image suspend_icon;
     private Gtk.Image resume_icon;
     private Gtk.Image restart_icon;
-    private Gtk.Button start_stop_reset;
     
     public EggTimerTimer ( string input_title, string input_message, double timer_countdown ) {
         Object ();
@@ -62,7 +60,7 @@ class EggTimerTimer : Gtk.Grid {
         );
         close_button.get_style_context ().remove_class ( "button" );
         close_button.clicked.connect ( ()=> {
-            this.on_delete ();
+            this.destroy ();
         } );
         this.attach ( close_button, 0, 0, 1, 2 );
         
@@ -76,11 +74,12 @@ class EggTimerTimer : Gtk.Grid {
         attach_next_to ( message, title, Gtk.PositionType.BOTTOM );
         
         display = new Counter ();
+        //display.set_display ( 0 );
         display.hexpand = true;
         display.halign = Gtk.Align.END;
         this.attach ( display, 2, 0, 1, 2 );
         
-        start_stop_reset = new Gtk.Button.from_icon_name (
+        var start_stop_reset = new Gtk.Button.from_icon_name (
             "media-playback-pause-symbolic"
         );
         start_stop_reset.clicked.connect ( suspend_restore_restart );
@@ -99,20 +98,19 @@ class EggTimerTimer : Gtk.Grid {
         notification = new Notify.Notification ( input_title, input_message,"dialog-warning" );
         timer = new GLib.Timer ();
         timer.start ();
-        timeout_id = Timeout.add ( 35, update );
+        Timeout.add ( 35, update );
     }
     
     //FIXME: this doesn't kill the fucking timer popping up if it's dead.
-    private void on_delete () {
-        Source.remove (timeout_id);
-        this.destroy ();
+    ~EggTimerTimer () {
+        timer.stop ();
     }
     
     private bool update () {
         if ( timer.elapsed () > countdown ) {
             timer_state = TimerState.COMPLETE;
             display.set_display ( 0 );
-            start_stop_reset.set_image ( restart_icon ); //FIXME: LAME but must rewrite button updates D:
+            //button.set_image ( restart_icon ); //FIXME: LAME but must rewrite button updates D:
             try {
                 notification.show ();
             } catch (Error e) {

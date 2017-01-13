@@ -17,6 +17,7 @@
 
 class ReminderTimer : Gtk.Grid {
     private Counter display;
+    private uint timeout_id;
     private GLib.Timer timer;
     private Notify.Notification notification;
     private double interval;
@@ -55,7 +56,7 @@ class ReminderTimer : Gtk.Grid {
         );
         close_button.get_style_context ().remove_class ( "button" );
         close_button.clicked.connect ( ()=> {
-            this.destroy ();
+            this.on_delete ();
         } );
         this.attach ( close_button, 0, 0, 1, 2 );
         
@@ -69,7 +70,6 @@ class ReminderTimer : Gtk.Grid {
         attach_next_to ( message, title, Gtk.PositionType.BOTTOM );
         
         display = new Counter ();
-        //display.set_display ( 0 );
         display.hexpand = true;
         display.halign = Gtk.Align.END;
         this.attach ( display, 2, 0, 1, 2 );
@@ -93,7 +93,12 @@ class ReminderTimer : Gtk.Grid {
         notification = new Notify.Notification ( input_title, input_message,"dialog-warning" );
         timer = new GLib.Timer ();
         timer.start ();
-        Timeout.add ( 35, update );
+        timeout_id = Timeout.add ( 35, update );
+    }
+    
+    private void on_delete () {
+        Source.remove (timeout_id);
+        this.destroy ();
     }
     
     private bool update () {
