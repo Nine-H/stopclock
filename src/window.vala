@@ -42,28 +42,39 @@ class Window : Gtk.Window {
         this.get_style_context ().add_class ("rounded");
         
         var view = new Gtk.Stack ();
-        var stopwatch = new StopWatch ();
-        view.add_titled ( stopwatch, "stopwatch", "stopwatch");
-        view.child_set_property (stopwatch, "icon-name", "stopclock-symbolic");
+        view.add_named ( new StopWatch (), "stopwatch");
+        view.add_named ( new ManagerView ( ManagerView.ManagerType.EGGTIMER ), "eggtimer" );
+        view.add_named ( new ManagerView ( ManagerView.ManagerType.ALARMTIMER ), "alarm" );
+        view.add_named ( new ManagerView ( ManagerView.ManagerType.REPEATTIMER ), "reminder" );
+        view.add_named ( new ManagerView ( ManagerView.ManagerType.WORLDCLOCK ), "worldclock" );
         
-        var eggtimer = new ManagerView ( ManagerView.ManagerType.EGGTIMER );
-        view.add_titled (eggtimer, "eggtimer", "eggtimer");
-        view.child_set_property (eggtimer, "icon-name", "emblem-important-symbolic");
-        
-        var alarm = new ManagerView ( ManagerView.ManagerType.ALARMTIMER );
-        view.add_titled (alarm, "alarm", "alarm");
-        view.child_set_property (alarm, "icon-name","alarm-symbolic");
-        
-        var reminder = new ManagerView ( ManagerView.ManagerType.REPEATTIMER );
-        view.add_titled (reminder, "reminder", "reminder");
-        view.child_set_property (reminder, "icon-name", "media-playlist-repeat-symbolic");
-        
-        var worldclock = new ManagerView ( ManagerView.ManagerType.WORLDCLOCK );
-        view.add_titled (worldclock, "worldclock", "worldclock");
-        view.child_set_property (worldclock, "icon-name", "text-html-symbolic");
-        
-        var selector = new Gtk.StackSwitcher ();
-        selector.stack = view;
+        var selector = new Granite.Widgets.ModeButton ();
+        selector.append_icon ("stopclock-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        selector.append_icon ("emblem-important-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        selector.append_icon ("alarm-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        selector.append_icon ("media-playlist-repeat-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        selector.append_icon ("text-html-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        selector.mode_changed.connect ( () => {
+            view.get_child_by_name ("dickballs");
+            switch (selector.selected) {
+                case 0:
+                    view.set_visible_child_name ("stopwatch");
+                    break;
+                case 1:
+                    view.set_visible_child_name ("eggtimer");
+                    break;
+                case 3:
+                    view.set_visible_child_name ("alarm");
+                    break;
+                case 4:
+                    view.set_visible_child_name ("reminder");
+                    break;
+                case 5:
+                    view.set_visible_child_name ("worldclock");
+                    break;
+            }
+                
+        });
         
         var headerbar = new Gtk.HeaderBar();
         this.set_titlebar (headerbar);
