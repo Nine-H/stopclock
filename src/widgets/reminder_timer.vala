@@ -19,7 +19,6 @@ class ReminderTimer : Gtk.Grid {
     private Counter display;
     private uint timeout_id;
     private GLib.Timer timer;
-    private Notify.Notification notification;
     private double interval;
     private enum TimerState {
         RUNNING,
@@ -28,6 +27,8 @@ class ReminderTimer : Gtk.Grid {
     private TimerState timer_state;
     private Gtk.Image suspend_icon;
     private Gtk.Image resume_icon;
+    private string title;
+    private string message;
     
     public ReminderTimer ( string input_title, string input_message, double timer_interval ) {
         Object ();
@@ -35,6 +36,9 @@ class ReminderTimer : Gtk.Grid {
         this.margin_start = 12;
         this.margin_end = 12;
         this.get_style_context (). add_class ( "timer-box" );
+        
+        this.title = input_title;
+        this.message = input_message;
         
         //precache the icons so it doesn't eat ram every suspend.
         suspend_icon = new Gtk.Image.from_icon_name (
@@ -90,8 +94,6 @@ class ReminderTimer : Gtk.Grid {
         this.show_all ();
         //inline above
         
-        notification = new Notify.Notification ( input_title, input_message,"dialog-warning" );
-        timer = new GLib.Timer ();
         timer.start ();
         timeout_id = Timeout.add ( 35, update );
     }
@@ -103,11 +105,9 @@ class ReminderTimer : Gtk.Grid {
     
     private bool update () {
         if ( timer.elapsed() > interval ) {
-            try {
-                notification.show ();
-            } catch (Error e) {
-        		error ("Error: %s", e.message);
-        	}
+            var notification = new Notification ( title );
+            notification.set_body ( message );
+            GLib.Application.get_default ().send_notification ("stopclock.app", notification);
             timer.reset();
         }
         display.set_display ( interval - timer.elapsed() );

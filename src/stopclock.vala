@@ -26,7 +26,7 @@ class StopClockApp : Granite.Application {
         app_years = "2015 - 2016";
         app_launcher = "stopclock.desktop";
         app_icon = "stopclock";
-        application_id = "com.github.nine-h.stopclock";
+        application_id = "stopclock.app";
         main_url = "https://github.com/Nine-H/stopclock";
         bug_url = "https://github.com/Nine-H/stopclock/issues";
         about_authors = { "Nine H <nine.gentooman@gmail.com>" };
@@ -46,7 +46,6 @@ class StopClockApp : Granite.Application {
     
     public static int main ( string [] args ) {
         Gtk.init (ref args);
-        Notify.init ("StopClock");
         
         string css_file = "/usr/share/stopclock/stopclock.css";
         var css_provider = new Gtk.CssProvider ();

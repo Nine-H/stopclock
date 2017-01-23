@@ -20,7 +20,6 @@ find_package(PkgConfig)
 pkg_check_modules(DEPS REQUIRED
     gtk+-3.0
     granite
-    libnotify
 )
 
 add_definitions(${DEPS_CFLAGS})
@@ -49,7 +48,6 @@ PACKAGES
     granite
     gtk+-3.0
     glib-2.0>=2.32
-    libnotify
 )
 
 add_executable(${EXEC_NAME} ${VALA_C})

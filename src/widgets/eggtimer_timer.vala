@@ -19,7 +19,6 @@ class EggTimerTimer : Gtk.Grid {
     private Counter display;
     private uint timeout_id;
     private GLib.Timer timer;
-    private Notify.Notification notification;
     private double countdown;
     private enum TimerState {
         RUNNING,
@@ -31,6 +30,8 @@ class EggTimerTimer : Gtk.Grid {
     private Gtk.Image resume_icon;
     private Gtk.Image restart_icon;
     private Gtk.Button start_stop_reset;
+    private string title;
+    private string message;
     
     public EggTimerTimer ( string input_title, string input_message, double timer_countdown ) {
         Object ();
@@ -38,6 +39,8 @@ class EggTimerTimer : Gtk.Grid {
         this.margin_start = 12;
         this.margin_end = 12;
         this.get_style_context (). add_class ( "timer-box" );
+        this.title = input_title;
+        this.message = input_message;
         
         //Precache icons
         suspend_icon = new Gtk.Image.from_icon_name (
@@ -96,7 +99,7 @@ class EggTimerTimer : Gtk.Grid {
         this.show_all ();
         //inline above
         
-        notification = new Notify.Notification ( input_title, input_message,"dialog-warning" );
+        
         timer = new GLib.Timer ();
         timer.start ();
         timeout_id = Timeout.add ( 35, update );
@@ -113,11 +116,9 @@ class EggTimerTimer : Gtk.Grid {
             timer_state = TimerState.COMPLETE;
             display.set_display ( 0 );
             start_stop_reset.set_image ( restart_icon ); //FIXME: LAME but must rewrite button updates D:
-            try {
-                notification.show ();
-            } catch (Error e) {
-                error ("Error: %s", e.message);
-            }
+            var notification = new Notification ( title );
+            notification.set_body ( message );
+            GLib.Application.get_default ().send_notification ("stopclock.app", notification);
             return true;//FIXME; false kills the update, which we need to keep calling to reset D:
             //actually might if rebound in the switch below but I gotta go to work D:
         }
