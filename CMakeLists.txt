@@ -37,6 +37,8 @@ vala_precompile(VALA_C ${EXEC_NAME}
     src/widgets/hms_popover.vala
     src/widgets/reminder_timer.vala
     src/widgets/eggtimer_timer.vala
+    src/widgets/alarm_popover.vala
+    src/widgets/alarm_timer.vala
     src/utils.vala
     src/manager_view.vala
     src/stopwatch.vala

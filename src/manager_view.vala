@@ -48,6 +48,11 @@ public class ManagerView : Gtk.Box {
                 add_timer.clicked.connect (() => { popover.show_all (); } );
                 break;
                 
+            case ManagerType.ALARMTIMER:
+                var popover = new AlarmPopover ( add_timer, this, list_view);
+                add_timer.clicked.connect (() => { popover.show_all (); } );
+                break;
+                
             case ManagerType.REPEATTIMER:
                 var popover = new HMSPopover ( add_timer, this, list_view );
                 add_timer.clicked.connect (() => { popover.show_all (); } );
@@ -69,7 +74,7 @@ public class ManagerView : Gtk.Box {
                 break;
             
             case ManagerType.ALARMTIMER:
-                list_view.insert ( new Gtk.Label ( "FUCK YOU ASSDOUCHE :D WAKE UP WHEN U WANT :D" ), 0 );
+                list_view.insert ( new AlarmTimer (), 0 );
                 break;
             
             case ManagerType.REPEATTIMER:

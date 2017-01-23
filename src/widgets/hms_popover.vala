@@ -31,6 +31,7 @@ class HMSPopover : Gtk.Popover {
         layout.add ( body );
         
         //FIXME: consider making this a class if it gets useful again.
+        //I guess I'm reusing this whole class.
         var timeentry = new Gtk.Box ( Gtk.Orientation.HORIZONTAL, 6 );
         var hours = new Gtk.SpinButton.with_range ( 0, 100, 1 );
         hours.set_orientation (Gtk.Orientation.VERTICAL);
