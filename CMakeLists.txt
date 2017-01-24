@@ -54,7 +54,7 @@ add_executable(${EXEC_NAME} ${VALA_C})
 
 install (TARGETS ${EXEC_NAME} RUNTIME DESTINATION bin)
 
-install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.desktop DESTINATION ${DATADIR}/applications/)
+install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.app.desktop DESTINATION ${DATADIR}/applications/)
 
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock.css DESTINATION ${DATADIR}/stopclock)
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/stopclock-symbolic.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/actions )

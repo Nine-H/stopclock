@@ -37,7 +37,7 @@ class HMSPopover : Gtk.Popover {
         hours.set_orientation (Gtk.Orientation.VERTICAL);
         timeentry.add ( hours );
         
-        var separator = new Gtk.Label ( "∶" );
+        var separator = new Gtk.Label ( ":" );
         separator.get_style_context().add_class( "h1" );
         timeentry.add ( separator );
         
@@ -50,7 +50,7 @@ class HMSPopover : Gtk.Popover {
         minutes.wrap = true;
         timeentry.add ( minutes );
         
-        var separator2 = new Gtk.Label ( "∶" );
+        var separator2 = new Gtk.Label ( ":" );
         separator2.get_style_context().add_class ( "h1" );
         timeentry.add ( separator2 );
         

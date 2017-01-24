@@ -8,6 +8,7 @@ Icon=stopclock
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=stopclock
+X-GNOME-UsesNotifications=true
 Keywords=Timer;Clock;Stopwatch;Reminder;World Clocks;Eggtimer;Countdown
 Actions=About;
 

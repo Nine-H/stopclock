@@ -56,8 +56,13 @@ class EggTimerTimer : Gtk.Grid {
         timer_state = TimerState.RUNNING;
         
         countdown = timer_countdown;
-        if ( input_title == "" ) input_title = "Default Timer";
-        if ( input_message == "" ) input_message = "You know what it's for :D";
+        
+        this.title = input_title;
+        this.message = input_message;
+        if ( title == "" ) {
+            title = "Default Eggtimer";
+            message = "You know what it's for :D";
+        }
         
         // maybe inline this shit :D
         var close_button = new Gtk.Button.from_icon_name (
@@ -69,12 +74,12 @@ class EggTimerTimer : Gtk.Grid {
         } );
         this.attach ( close_button, 0, 0, 1, 2 );
         
-        var title = new Gtk.Label ( input_title );
+        var title = new Gtk.Label ( title );
         title.get_style_context ().add_class ( "h3" );
         title.halign = Gtk.Align.START;
         this.attach ( title, 1, 0, 1, 1 );
         
-        var message = new Gtk.Label ( input_message );
+        var message = new Gtk.Label ( message );
         message.halign = Gtk.Align.START;
         attach_next_to ( message, title, Gtk.PositionType.BOTTOM );
         
@@ -86,7 +91,7 @@ class EggTimerTimer : Gtk.Grid {
         start_stop_reset = new Gtk.Button.from_icon_name (
             "media-playback-pause-symbolic"
         );
-        start_stop_reset.clicked.connect ( suspend_restore_restart );
+        start_stop_reset.clicked.connect ( suspend_restore );
         start_stop_reset.get_style_context ().remove_class ( "button" );
         this.attach ( start_stop_reset, 3, 0, 1, 2 );
         
@@ -105,7 +110,6 @@ class EggTimerTimer : Gtk.Grid {
         timeout_id = Timeout.add ( 35, update );
     }
     
-    //FIXME: this doesn't kill the fucking timer popping up if it's dead.
     private void on_delete () {
         Source.remove (timeout_id);
         this.destroy ();
@@ -119,14 +123,25 @@ class EggTimerTimer : Gtk.Grid {
             var notification = new Notification ( title );
             notification.set_body ( message );
             GLib.Application.get_default ().send_notification ("stopclock.app", notification);
-            return true;//FIXME; false kills the update, which we need to keep calling to reset D:
+            start_stop_reset.clicked.connect (restart);
+            return false;
+            //FIXME; false kills the update, which we need to keep calling to make reset button work
             //actually might if rebound in the switch below but I gotta go to work D:
         }
         display.set_display ( countdown - timer.elapsed() );
         return true;
     }
     
-    private void suspend_restore_restart ( Gtk.Button button ) {
+    private void restart (Gtk.Button button) {
+        button.clicked.connect (suspend_restore);
+        timer.reset ();
+        timer.start ();
+        button.set_image (suspend_icon);
+        timer_state = TimerState.RUNNING;
+        timeout_id = Timeout.add (35, update);
+    }
+    
+    private void suspend_restore ( Gtk.Button button ) {
         switch ( timer_state ) {
             case TimerState.RUNNING:
                 timer.stop ();

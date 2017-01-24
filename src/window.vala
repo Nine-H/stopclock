@@ -55,7 +55,6 @@ class Window : Gtk.Window {
         selector.append_icon ("media-playlist-repeat-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         selector.append_icon ("text-html-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         selector.mode_changed.connect ( () => {
-            view.get_child_by_name ("dickballs");
             switch (selector.selected) {
                 case 0:
                     view.set_visible_child_name ("stopwatch");
@@ -63,13 +62,13 @@ class Window : Gtk.Window {
                 case 1:
                     view.set_visible_child_name ("eggtimer");
                     break;
-                case 3:
+                case 2:
                     view.set_visible_child_name ("alarm");
                     break;
-                case 4:
+                case 3:
                     view.set_visible_child_name ("reminder");
                     break;
-                case 5:
+                case 4:
                     view.set_visible_child_name ("worldclock");
                     break;
             }

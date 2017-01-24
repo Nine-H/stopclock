@@ -44,24 +44,19 @@ public class ManagerView : Gtk.Box {
         
         switch ( manager_type ) {
             case ManagerType.EGGTIMER:
-                var popover = new HMSPopover ( add_timer, this, list_view );
-                add_timer.clicked.connect (() => { popover.show_all (); } );
+                add_timer.clicked.connect (() => { new HMSPopover (add_timer, this, list_view).show_all (); } );
                 break;
                 
             case ManagerType.ALARMTIMER:
-                var popover = new AlarmPopover ( add_timer, this, list_view);
-                add_timer.clicked.connect (() => { popover.show_all (); } );
+                add_timer.clicked.connect (() => { new AlarmPopover ( add_timer, this, list_view).show_all (); } );
                 break;
                 
             case ManagerType.REPEATTIMER:
-                var popover = new HMSPopover ( add_timer, this, list_view );
-                add_timer.clicked.connect (() => { popover.show_all (); } );
+                add_timer.clicked.connect (() => { new HMSPopover ( add_timer, this, list_view ).show_all (); } );
                 break;
-            
-            default:
-                add_timer.clicked.connect (() => { this.add_timer ( "", "", 0); } );
+                
+            case ManagerType.WORLDCLOCK:
                 break;
-        
         }
         
         this.pack_end ( add_timer, false, false, 0 );

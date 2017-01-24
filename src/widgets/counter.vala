@@ -37,9 +37,9 @@ class Counter : Gtk.Box {
         int h, m, s, ms = 0;
         Utils.time_to_hms ( input, out h, out m, out s, out ms );
         if (h > 0)
-            readout.set_label ( "%i∶%02i∶%02i".printf (h, m, s) );
+            readout.set_label ( "%i:%02i:%02i".printf (h, m, s) );
         else
-            readout.set_label ( "%i∶%02i".printf (m, s) );
+            readout.set_label ( "%i:%02i".printf (m, s) );
         miliseconds.set_label ( ".%02i".printf (ms) );
     }
 }

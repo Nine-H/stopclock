@@ -37,9 +37,6 @@ class ReminderTimer : Gtk.Grid {
         this.margin_end = 12;
         this.get_style_context (). add_class ( "timer-box" );
         
-        this.title = input_title;
-        this.message = input_message;
-        
         //precache the icons so it doesn't eat ram every suspend.
         suspend_icon = new Gtk.Image.from_icon_name (
             "media-playback-pause-symbolic", Gtk.IconSize.SMALL_TOOLBAR
@@ -51,8 +48,15 @@ class ReminderTimer : Gtk.Grid {
         timer_state = TimerState.RUNNING;
         
         interval = timer_interval;
-        if ( input_title == "" ) input_title = "Default Timer";
-        if ( input_message == "" ) input_message = "You know what it's for :D";
+        
+        this.title = input_title;
+        this.message = input_message;
+        // this looks like a bug but I don't want to force insipid stock text
+        // on the people that title their stuff.
+        if (title == "") {
+            title = "Default Reminder";
+            message = "You know what it's for :D";
+        }
         
         // maybe inline this shit :D
         var close_button = new Gtk.Button.from_icon_name (
@@ -64,12 +68,12 @@ class ReminderTimer : Gtk.Grid {
         } );
         this.attach ( close_button, 0, 0, 1, 2 );
         
-        var title = new Gtk.Label ( input_title );
+        var title = new Gtk.Label ( title );
         title.get_style_context ().add_class ( "h3" );
         title.halign = Gtk.Align.START;
         this.attach ( title, 1, 0, 1, 1 );
         
-        var message = new Gtk.Label ( input_message );
+        var message = new Gtk.Label ( message );
         message.halign = Gtk.Align.START;
         attach_next_to ( message, title, Gtk.PositionType.BOTTOM );
         
@@ -94,6 +98,7 @@ class ReminderTimer : Gtk.Grid {
         this.show_all ();
         //inline above
         
+        timer = new GLib.Timer ();
         timer.start ();
         timeout_id = Timeout.add ( 35, update );
     }
